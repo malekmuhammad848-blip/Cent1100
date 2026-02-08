@@ -1,0 +1,25 @@
+name: Unzip Project
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  unzip:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Unzip
+      run: |
+        unzip global-ai-music-platform.zip
+        rm global-ai-music-platform.zip
+
+    - name: Commit extracted files
+      run: |
+        git config user.name github-actions
+        git config user.email actions@github.com
+        git add .
+        git commit -m "Extract project"
+        git push
